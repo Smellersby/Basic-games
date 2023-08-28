@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="globalContainer">
+        <div id="startingScreen">
+            <h1>Welcome to Minesweeper Google Chrome Edition</h1>
+            <h2>Choose one of the difficulty presets or make your own field</h2>
+            <p class="randomP">Presets</p>
+            <div id="difficultyPresets">
+                <button class="difficulty" id="easy">easy</button>
+                <button class="difficulty" id="medium">medium</button>
+                <button class="difficulty" id="hard">hard</button>
+            </div>
+            <p class="randomP">Custom settings</p>
+            <div id="customSettings">
+                <p class="gridP">Field width :</p>
+                <input  id="widthInputField" type="text" placeholder="50 max">
+                <p class="gridP">Field height :</p>
+                <input  id="heightInputField" type="text" placeholder="50 max">
+                <p class="gridP">Mine count :</p>
+                <input  id="mineInputField" type="text">
+            </div>
+            
+            <button id="startButton">Start Game</button>
+            
+        </div>
+        <div id="gameContainer">
+            <div id="toolbar">
+                <div id="flags">
+                    <p>🚩:</p>
+                    <p id="flagsPlanted">0</p>
+                    <p>/</p>
+                    <p id="flagsLeft">0</p>
+                </div>
+                <p id="theDude" onmousedown="clickCheck(event)">
+                    😐
+                </p>
+                <div id="time">
+                    <p>Time: idk</p>
+                </div>
+            </div>
+            <div id="fieldContainer" ></div>
+        </div>
+    </div>
+    <script src="./sacredScript.js"></script>
+</body>
+</html>
