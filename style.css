@@ -161,6 +161,10 @@ p{
     display: flex;
     align-items: baseline;
 }
+#time{
+    display: flex;
+    align-items: baseline;
+}
 #theDude{
     background-color: #d0d0d0;
     display: grid;

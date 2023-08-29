@@ -12,6 +12,8 @@ let medium=document.getElementById("medium")
 medium.addEventListener("click",makeMedium)
 let hard=document.getElementById("hard")
 hard.addEventListener("click",makeHard)
+let minutesField=document.getElementById("minutesField")
+let secondsField=document.getElementById("secondsField")
 let firstTurn=true
 let mineInput
 let widthInput
@@ -20,6 +22,8 @@ let found
 let fieldExists
 let lockPlayer=false
 let busy=false
+let seconds=0
+let minutes=0
 const field = [];
 
 function clickCheck(event){
@@ -172,6 +176,11 @@ function openCell(){
                     plantBomb()
                     countBomb()
                     firstTurn=false
+                    seconds=0
+                    minutes=0
+                    secondsField.innerHTML="0"+seconds
+                    minutesField.innerHTML=minutes
+                    timerInterval = setInterval(timerFunction, 1000);
                 }
                 if(this.className=="cell pressed"||this.className=="cell bomb pressed"){
                     this.style.backgroundColor="#ececec"
@@ -202,6 +211,7 @@ function openCell(){
                     }
                 }
                 if(this.className=="cell bomb open"){
+                    clearInterval(timerInterval)
                     this.style.backgroundColor="rgb(251, 145, 33)"
                     field[y][x].visual.innerHTML="💥"
                     theDude.innerHTML="🤕"
@@ -307,6 +317,7 @@ function victoryCheck(){
             }
         }
     }
+    clearInterval(timerInterval)
     theDude.innerHTML="🥳"
     startButton.innerHTML="Restart"
     lockPlayer=true
@@ -340,4 +351,17 @@ function makeHard(){
     document.getElementById("widthInputField").value=20
     document.getElementById("heightInputField").value=20
     document.getElementById("mineInputField").value=70
+}
+
+function timerFunction(){conds++
+    if(seconds==60){
+        seconds=0
+        minutes++
+        minutesField.innerHTML=minutes
+    }
+    if(seconds>9){
+        secondsField.innerHTML=seconds
+    }else{
+        secondsField.innerHTML="0"+seconds
+    }
 }
