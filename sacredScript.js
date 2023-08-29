@@ -273,13 +273,15 @@ function zeroOpener(){
     } while (found);
 }
 
-function surprise(){
-    if(lockPlayer==false){
-        if(this.className=="cell"||this.className=="cell bomb"){
-            theDude.innerHTML="😮"
-            this.className+=" pressed"//rgb(25, 74, 117)
+function surprise(event){
+        if(lockPlayer==false){
+            if(this.className=="cell"||this.className=="cell bomb"){
+                if(event.button==0){
+                    theDude.innerHTML="😮"
+                }
+                this.className+=" pressed"//rgb(25, 74, 117)
+            }
         }
-    }
 }
 
 function fixSurprise(){
