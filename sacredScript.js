@@ -74,6 +74,9 @@ function createField() {
                 }
             }
         }
+        if(timerInterval){
+            clearInterval(timerInterval)
+        }
         seconds = 0
         minutes = 0
         secondsField.innerHTML = "0" + seconds
