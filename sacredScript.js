@@ -12,7 +12,13 @@ medium.addEventListener("click", makeMedium)
 let hard = document.getElementById("hard")
 hard.addEventListener("click", makeHard)
 document.body.addEventListener("mouseup", (event) => {
-    if (event.button == 1) {
+    if (event.button == 0) {
+        leftClick = false
+        litMode = false
+    }else if (event.button == 1) {
+        litMode = false
+    }else if (event.button == 2) {
+        rightClick = false
         litMode = false
     }
 })
@@ -31,6 +37,8 @@ let seconds = 0
 let minutes = 0
 let currentCell
 let litMode = false
+let leftClick = false
+let rightClick = false
 const field = [];
 
 class cell { //cells are now objects but I store info in css classes
@@ -291,7 +299,19 @@ function surprise(event) {
                 this.className += " pressed"//rgb(25, 74, 117)
             }
         }
-        if (event.button == 1) {
+        if(event.button == 0){
+            leftClick=true
+        }else if(event.button == 2){
+            rightClick=true
+        }
+        if (event.button == 1||(leftClick==true&&rightClick==true)) {
+            if(this.className == "cell pressed"){
+                this.className = "cell"
+                theDude.innerHTML = "😐"
+            }else if(this.className == "cell bomb pressed"){
+                this.className = "cell bomb"
+                theDude.innerHTML = "😐"
+            }
             event.preventDefault()
             this.className += " litCenter"
             litMode = true
@@ -310,6 +330,7 @@ function surprise(event) {
                 }
             }
         }
+
     }
 }
 
