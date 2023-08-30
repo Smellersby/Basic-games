@@ -118,6 +118,9 @@ p{
 .pressed{
     background-color:rgb(25, 74, 117) ;
 }
+.lit{
+    background-color:rgb(159, 195, 226)
+}
 #fieldContainer{
     flex-flow: column;
     display: flex;

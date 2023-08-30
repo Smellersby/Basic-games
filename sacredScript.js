@@ -12,6 +12,11 @@ let medium = document.getElementById("medium")
 medium.addEventListener("click", makeMedium)
 let hard = document.getElementById("hard")
 hard.addEventListener("click", makeHard)
+document.body.addEventListener("mouseup",(event)=>{
+    if(event.button==1){
+        litMode=false
+    }
+})
 let minutesField = document.getElementById("minutesField")
 let secondsField = document.getElementById("secondsField")
 let firstTurn = true
@@ -25,6 +30,8 @@ let busy = false
 let timerInterval
 let seconds = 0
 let minutes = 0
+let currentCell
+let litMode=false
 const field = [];
 
 function clickCheck(event) {
@@ -103,6 +110,8 @@ function createField() {
                 visualRow.appendChild(visualCell); // creates x cells in rows
                 visualCell.addEventListener("mousedown", surprise)
                 visualCell.addEventListener("mouseout", fixSurprise)
+                visualCell.addEventListener("mouseenter", lit)
+                visualCell.addEventListener("mouseup", unLit)
                 visualCell.addEventListener("click", openCell)
                 visualCell.addEventListener("contextmenu", plantFlag)
                 field[y][x] = new cell(y, x);
@@ -237,10 +246,6 @@ function plantFlag(event) {
         busy = true
         setTimeout(() => { busy = false }, 50);
         if (this.className == "cell pressed" || this.className == "cell bomb pressed") {
-            if (theDude.innerHTML == "😮") {
-                this.style.backgroundColor = "rgb(51, 122, 185)"
-                theDude.innerHTML = "😐"
-            }
             if (this.className == "cell pressed") {
                 this.className = "cell flagged"
             }
@@ -293,7 +298,30 @@ function surprise(event) {
             if (event.button == 0) {
                 theDude.innerHTML = "😮"
             }
+            if(event.button==2 || event.button == 0){
             this.className += " pressed"//rgb(25, 74, 117)
+            }
+        }
+        if(event.button==1){
+            event.preventDefault()
+            this.className += " litCenter"
+            console.log("light up")
+            litMode=true
+            console.log("litmode",litMode)
+            let idPartitionning = this.id.split(" ")
+            y = parseInt(idPartitionning[0])
+            x = parseInt(idPartitionning[1])
+            for(i=y-1;i<y+2;i++){
+                if(i>-1&&i<heightInput){
+                    for(p=x-1;p<x+2;p++){
+                        if(p>-1&&p<widthInput){
+                    if(field[i][p].visual.className=="cell" || field[i][p].visual.className=="cell bomb"|| field[i][p].visual.className=="cell flagged" || field[i][p].visual.className=="cell bomb flagged"){
+                        field[i][p].visual.className+=" lit"
+                    }
+                }
+                }
+            }
+        }
         }
     }
 }
@@ -301,12 +329,83 @@ function surprise(event) {
 function fixSurprise() {
     if (lockPlayer == false) {
         if (theDude.innerHTML == "😮") {
-            if (this.className == "cell pressed") {
+            if (this.className == "cell pressed" ) {
                 this.className = "cell"
             } else if (this.className == "cell bomb pressed") {
                 this.className = "cell bomb"
             }
             theDude.innerHTML = "😐"
+        }else if(this.className=="cell litCenter"||this.className=="cell bomb litCenter" || this.className=="cell open litCenter" || this.className=="cell flagged litCenter" || this.className=="cell bomb flagged litCenter"){
+            console.log('unlit from slide')
+            let idPartitionning = this.id.split(" ") 
+            y = parseInt(idPartitionning[0])
+            x = parseInt(idPartitionning[1])
+            unLit(y,x)
+        }
+    }
+}
+
+function lit(){
+    currentCell=this
+        if(litMode==true){
+            console.log("slide lit")
+            this.className += " litCenter"
+            let idPartitionning = currentCell.id.split(" ")
+            y = parseInt(idPartitionning[0])
+            x = parseInt(idPartitionning[1])
+            for(i=y-1;i<y+2;i++){
+                if(i>-1&&i<heightInput){
+                    for(p=x-1;p<x+2;p++){
+                        if(p>-1&&p<widthInput){
+                    if(field[i][p].visual.className=="cell" || field[i][p].visual.className=="cell bomb"|| field[i][p].visual.className=="cell flagged" || field[i][p].visual.className=="cell bomb flagged"){
+                        field[i][p].visual.className+=" lit"
+                    }
+                }
+                }
+            }
+        }
+    }
+    
+}
+
+function unLit(y,x){
+    if(x==undefined){
+        console.log("should be udefined",x)
+        let idPartitionning = this.id.split(" ")
+        y = parseInt(idPartitionning[0])
+        x = parseInt(idPartitionning[1])
+    }
+    if(field[y][x].visual.className=="cell litCenter"){
+        field[y][x].visual.className="cell"
+    }else if(field[y][x].visual.className=="cell bomb litCenter"){
+        field[y][x].visual.className="cell bomb"
+    }else if(field[y][x].visual.className=="cell open litCenter"){
+        field[y][x].visual.className="cell open"
+    }else if(field[y][x].visual.className=="cell flagged litCenter"){
+        field[y][x].visual.className="cell flagged"
+    }else if(field[y][x].visual.className=="cell bomb flagged litCenter"){
+        field[y][x].visual.className="cell bomb flagged"
+    }
+
+    for(i=y-1;i<y+2;i++){
+        if(i>-1&&i<heightInput){
+            for(p=x-1;p<x+2;p++){
+                if(p>-1&&p<widthInput){
+                    if(field[i][p].visual.className=="cell lit"){
+                        console.log("time to unlit", field[i][p].visual.className)
+                    field[i][p].visual.className="cell"
+                    }else if(field[i][p].visual.className=="cell bomb lit"){
+                        console.log("time to unlit", field[i][p].visual.className)
+                        field[i][p].visual.className="cell bomb"
+                    }else if(field[i][p].visual.className=="cell flagged lit"){
+                        console.log("time to unlit", field[i][p].visual.className)
+                    field[i][p].visual.className="cell flagged"
+                    }else if(field[i][p].visual.className=="cell bomb flagged lit"){
+                        console.log("time to unlit", field[i][p].visual.className)
+                        field[i][p].visual.className="cell bomb flagged"
+                    }
+                }
+            }
         }
     }
 }
