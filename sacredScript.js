@@ -39,6 +39,7 @@ let currentCell
 let litMode = false
 let leftClick = false
 let rightClick = false
+let adjacentFlags=0
 const field = [];
 
 class cell { //cells are now objects but I store info in css classes
@@ -305,6 +306,49 @@ function surprise(event) {
             rightClick=true
         }
         if (event.button == 1||(leftClick==true&&rightClick==true)) {
+            event.preventDefault()
+            let idPartitionning = this.id.split(" ")
+            y = parseInt(idPartitionning[0])
+            x = parseInt(idPartitionning[1])
+            adjacentFlags=0
+            for (i = y - 1; i < y + 2; i++) {
+                if (i > -1 && i < heightInput) {
+                    for (p = x - 1; p < x + 2; p++) {
+                        if (p > -1 && p < widthInput) {
+                            if (field[i][p].visual.className == "cell flagged" || field[i][p].visual.className == "cell bomb flagged") {
+                                adjacentFlags++
+                            }
+                        }
+                    }
+                }
+            }
+            if(adjacentFlags==this.innerHTML&&this.innerHTML>0){
+                for (i = y - 1; i < y + 2; i++) {
+                    if (i > -1 && i < heightInput) {
+                        for (p = x - 1; p < x + 2; p++) {
+                            if (p > -1 && p < widthInput) {
+                                if (field[i][p].visual.className == "cell") {
+                                    field[i][p].visual.className = "cell open"
+                                    field[i][p].visual.innerHTML =  field[i][p].adjacentMineCount
+                                    zeroOpener()
+                                    victoryCheck()
+                                    
+                                }else if(field[i][p].visual.className == "cell bomb"){
+                                    field[i][p].visual.className = "cell bomb open"
+                                    clearInterval(timerInterval)
+                                    this.style.backgroundColor = "rgb(251, 145, 33)"
+                                    field[i][p].visual.innerHTML = "💥"
+                                    theDude.innerHTML = "🤕"
+                                    lockPlayer = true
+                                    startButton.innerHTML = "Restart"
+                                    openField()
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
             if(this.className == "cell pressed"){
                 this.className = "cell"
                 theDude.innerHTML = "😐"
@@ -312,12 +356,8 @@ function surprise(event) {
                 this.className = "cell bomb"
                 theDude.innerHTML = "😐"
             }
-            event.preventDefault()
             this.className += " litCenter"
             litMode = true
-            let idPartitionning = this.id.split(" ")
-            y = parseInt(idPartitionning[0])
-            x = parseInt(idPartitionning[1])
             for (i = y - 1; i < y + 2; i++) {
                 if (i > -1 && i < heightInput) {
                     for (p = x - 1; p < x + 2; p++) {
