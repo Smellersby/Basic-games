@@ -184,16 +184,16 @@ function openCell() {
     if (lockPlayer == false) {
         setTimeout(() => {
             if (busy == false) {
-                if (firstTurn == true) {
-                    let idPartitionning = this.id.split(" ")
-                    firstY = idPartitionning[0]
-                    firstX = idPartitionning[1]
-                    plantBomb()
-                    countBomb()
-                    firstTurn = false
-                    timerInterval = setInterval(timerFunction, 1000);
-                }
                 if (this.className == "cell pressed" || this.className == "cell bomb pressed") {
+                    if (firstTurn == true) {
+                        let idPartitionning = this.id.split(" ")
+                        firstY = idPartitionning[0]
+                        firstX = idPartitionning[1]
+                        plantBomb()
+                        countBomb()
+                        firstTurn = false
+                        timerInterval = setInterval(timerFunction, 1000);
+                    }
                     this.style.backgroundColor = "#ececec"
                     theDude.innerHTML = "😐"
                     if (this.className == "cell pressed") {
@@ -376,7 +376,7 @@ function surprise(event) {
 
 function fixSurprise() {
     if (lockPlayer == false) {
-        if (theDude.innerHTML == "😮") {
+        if (this.className == "cell pressed"||this.className == "cell bomb pressed") {
             if (this.className == "cell pressed") {
                 this.className = "cell"
             } else if (this.className == "cell bomb pressed") {
