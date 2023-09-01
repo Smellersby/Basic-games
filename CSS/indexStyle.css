@@ -1,0 +1,31 @@
+#globalContainer{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.game{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgb(241, 241, 241);
+}
+.linkButton{
+    display: flex;
+    width: 100px;
+    height: 30px;
+    background-color: rgb(51, 126, 212);
+    text-decoration: none;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 18px;
+}
+.game img{
+    width: 200px;
+}
+.game *{
+    margin: 10px;
+}
