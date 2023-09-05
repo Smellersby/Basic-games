@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            color: black;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            flex-flow: column;
+        }
+        .box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width:100px;
+        height: 100px;
+        background-color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 52px;
+        font-weight: 750;
+        position: relative;
+        }
+        .gridContainer {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 100px 100px 100px;
+        background-color: black;
+        }
+        h1{
+            font-size: 42px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h2{
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h3{
+            color: white;
+            transition-duration: 0.5s;
+            font-size: 32px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #line{
+            position: absolute;
+            left: 10px;
+            width: 300px;
+            height: 15px;
+            background-color: #a52a2a;
+            z-index: 2;
+            transition-duration: 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <a href="./index.html">Back to reality</a>
+    <h1>Tic-Tac-Toe</h1>
+    <div class="gridContainer">
+        <div class="box" id="box1"></div>
+        <div class="box" id="box2"></div>
+        <div class="box" id="box3"></div>
+        <div class="box" id="box4"></div>
+        <div class="box" id="box5"></div>
+        <div class="box" id="box6"></div>
+        <div class="box" id="box7"></div>
+        <div class="box" id="box8"></div>
+        <div class="box" id="box9"></div>
+    </div>
+    <h2 id="turnIndicator">X turns</h2>
+    <h3 id="results"></h3>
+    <script src="../JS/tictacscript.js"></script>
+</body>
+</html>
