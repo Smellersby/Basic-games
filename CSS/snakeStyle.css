@@ -1,5 +1,20 @@
-cell{
-    width: 50px;
-    height: 50px;
+.cell{
+    width: 10px;
+    height: 10px;
+    background-color: rgb(58, 152, 4);
+    margin: 1px;
+}
+#fieldContainer{
+    display: flex;
+    flex-flow: column;
+}
+.row{
+    display: flex;
+    
+}
+.snake{
     background-color: black;
+}
+.food{
+    background-color: brown;
 }
