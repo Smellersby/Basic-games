@@ -1,7 +1,7 @@
 .cell{
     width: 10px;
     height: 10px;
-    background-color: rgb(58, 152, 4);
+    background-color: rgb(67, 177, 3);
     margin: 1px;
 }
 #fieldContainer{
@@ -17,4 +17,8 @@
 }
 .food{
     background-color: brown;
+}
+#fieldContainer{
+    background-color: rgb(62, 128, 0);
+    width: fit-content;
 }

@@ -36,8 +36,9 @@ function createField() {
     } else {
         if (fieldExists == true) {
             clearInterval(timerInterval)
+            
             while (fieldContainer.hasChildNodes()) {
-                fieldContainer.removeChild(fieldContainer.firstChild);
+            fieldContainer.removeChild(fieldContainer.firstChild);
             }
             for (let y = 0; y < field.length; y++) {
                 for (let x = 0; x < field[y].length; x++) {
@@ -47,7 +48,7 @@ function createField() {
             }
         }
         fieldExists=true
-        timerInterval = setInterval(gameLoop, 300);
+        timerInterval = setInterval(gameLoop, 250);
         for (let y = 0; y < heightInput; y++) {
             const row = [];
             field[y] = row
@@ -69,8 +70,10 @@ function createField() {
 function gameLoop(){
     hungry=true
     if(foodExists==false){
-        randomX=Math.floor(Math.random() * widthInput);
-        randomY=Math.floor(Math.random() * heightInput);
+        do {
+            randomX=Math.floor(Math.random() * widthInput);
+            randomY=Math.floor(Math.random() * heightInput);
+        } while (field[randomY][randomX].visual.className=="cell snake");
         field[randomY][randomX].visual.className+=" food"
         foodExists=true
     }
@@ -97,10 +100,12 @@ function gameLoop(){
             foodEaten++
             foodExists=false
             field[snakeY][snakeX].visual.className="cell snake"
+            field[snakeY][snakeX].ticksLeft=foodEaten-1
+        }else{
+            field[snakeY][snakeX].visual.className+=" snake"
+            field[snakeY][snakeX].ticksLeft=foodEaten
         }
-        field[snakeY][snakeX].visual.className+=" snake"
-        field[snakeY][snakeX].ticksLeft=foodEaten
-        console.log(foodEaten)
+        
     }else{
         console.log("death")
         clearInterval(timerInterval)
