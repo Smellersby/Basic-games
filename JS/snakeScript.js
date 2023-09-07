@@ -1,12 +1,14 @@
+var root = document.querySelector(':root');
 document.body.addEventListener("keydown",keyCheck)
 let startButton = document.getElementById("startButton")
 startButton.addEventListener("click", createField)
-let lastKey="ArrowUp"
+let inputKey
+let lastKey="arrowup"
 let fieldExists=false
-let widthInput
-let heightInput
-let snakeY=9
-let snakeX=9
+let widthInput=11
+let heightInput=11
+let snakeY=5
+let snakeX=5
 let foodEaten=4
 let timerInterval
 let hungry=true
@@ -23,17 +25,13 @@ class cell {
 }
 
 function keyCheck(event){
-    lastKey=String(event.key)
+    inputKey=String(event.key).toLowerCase()
+    if(inputKey=="w"||inputKey=="a"||inputKey=="d"||inputKey=="s"||inputKey=="arrowup"||inputKey=="arrowdown"||inputKey=="arrowleft"||inputKey=="arrowright"){
+        lastKey=inputKey 
+    }
 }
 function createField() {
-
-    widthInput = parseInt(document.getElementById("widthInputField").value)
-    heightInput = parseInt(document.getElementById("heightInputField").value)
-    if (!widthInput || !heightInput) {
-        alert("Please enter all values")
-    } else if (widthInput > 50 || heightInput > 50 || widthInput < 2 || heightInput < 2) {
-        alert("Field size is incorrect")
-    } else {
+   
         if (fieldExists == true) {
             clearInterval(timerInterval)
             
@@ -64,7 +62,7 @@ function createField() {
                 
             }
         }
-    }
+    
 }
 
 function gameLoop(){
@@ -81,16 +79,29 @@ function gameLoop(){
     
 
     switch (lastKey) {
-        case 'ArrowUp':
+        case 'arrowup':
             snakeY--
           break;
-        case "ArrowDown":
+          case 'w':
+            snakeY--
+          break;
+        case "arrowdown":
             snakeY++
             break;
-        case 'ArrowLeft':
+            case "s":
+            snakeY++
+            break;
+        case 'arrowleft':
             snakeX--
             break;
-        case 'ArrowRight':
+            case 'a':
+            snakeX--
+            break;
+            
+        case 'arrowright':
+            snakeX++
+          break;
+          case 'd':
             snakeX++
           break;
       }
@@ -101,13 +112,17 @@ function gameLoop(){
             foodExists=false
             field[snakeY][snakeX].visual.className="cell snake"
             field[snakeY][snakeX].ticksLeft=foodEaten-1
+
+            randomColor=String(Math.floor(Math.random() * 350));
+            console.log('hsl( ',randomColor,', 100%, 50%)')
+            root.style.setProperty('--food', 'hsl( ',randomColor,', 100%, 50%)');
         }else{
             field[snakeY][snakeX].visual.className+=" snake"
             field[snakeY][snakeX].ticksLeft=foodEaten
         }
         
     }else{
-        console.log("death")
+        console.log("death",lastKey)
         clearInterval(timerInterval)
     }
 
