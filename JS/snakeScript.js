@@ -3,16 +3,17 @@ document.body.addEventListener("keydown",keyCheck)
 let startButton = document.getElementById("startButton")
 startButton.addEventListener("click", createField)
 let inputKey
-let lastKey="arrowup"
+let lastKey
 let fieldExists=false
 let widthInput=11
 let heightInput=11
-let snakeY=5
-let snakeX=5
-let foodEaten=4
+let snakeY
+let snakeX
+let foodEaten
 let timerInterval
-let hungry=true
-let foodExists=false
+let hungry
+let foodExists
+let randomColorSend
 const field = [];
 
 class cell {
@@ -31,7 +32,12 @@ function keyCheck(event){
     }
 }
 function createField() {
-   
+        hungry=true
+        lastKey="arrowup"
+        snakeY=5
+        snakeX=5
+        foodEaten=10//4
+        foodExists=false
         if (fieldExists == true) {
             clearInterval(timerInterval)
             
@@ -112,10 +118,17 @@ function gameLoop(){
             foodExists=false
             field[snakeY][snakeX].visual.className="cell snake"
             field[snakeY][snakeX].ticksLeft=foodEaten-1
-
             randomColor=String(Math.floor(Math.random() * 350));
-            console.log('hsl( ',randomColor,', 100%, 50%)')
-            root.style.setProperty('--food', 'hsl( ',randomColor,', 100%, 50%)');
+            randomColorSend="hsl( "+randomColor+", 100%, 50%)"
+            root.style.setProperty('--food', randomColorSend);
+            randomColorSend="hsl( "+randomColor+", 90%, 37%)"
+            root.style.setProperty('--cell', randomColorSend);
+            randomColorSend="hsl( "+randomColor+", 80%, 30%)"
+            root.style.setProperty('--background', randomColorSend);
+            randomColorSend="hsl( "+randomColor+", 80%, 10%)"
+            root.style.setProperty('--snake', randomColorSend);
+            randomColorSend="hsl( "+randomColor+", 100%, 70%)"
+            root.style.setProperty('--body', randomColorSend);
         }else{
             field[snakeY][snakeX].visual.className+=" snake"
             field[snakeY][snakeX].ticksLeft=foodEaten

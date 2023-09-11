@@ -3,6 +3,10 @@
     --background: #3e8000;
     --cell: #43b103;
     --food: hsl(0, 59%, 41%);
+    --body: hsl(0, 0%, 100%)
+}
+body{
+    background-color: var(--body);
 }
 .cell{
     width: 25px;
