@@ -16,7 +16,18 @@ let timerInterval
 let hungry
 let foodExists
 let randomColorSend
+let speed=250
+let fun=false
 const field = [];
+
+let slowButton = document.getElementById("slow")
+slowButton.addEventListener("click", ()=>{speed=350})
+let mediumButton = document.getElementById("medium")
+mediumButton.addEventListener("click", ()=>{speed=250})
+let fastButton = document.getElementById("fast")
+fastButton.addEventListener("click", ()=>{speed=150})
+let foodBox = document.getElementById("extraFood")
+foodBox.addEventListener("click", ()=>{fun=foodBox.checked})
 
 class cell {
     constructor(y, x) {
@@ -51,11 +62,12 @@ function keyCheck(event){
     }
 }
 function createField() {
+    console.log(speed)
         hungry=true
         currentKey="arrowup"
         snakeY=5
         snakeX=5
-        foodEaten=10//4
+        foodEaten=4
         foodExists=false
         if (fieldExists == true) {
             clearInterval(timerInterval)
@@ -71,7 +83,7 @@ function createField() {
             }
         }
         fieldExists=true
-        timerInterval = setInterval(gameLoop, 250);
+        timerInterval = setInterval(gameLoop, speed);
         for (let y = 0; y < heightInput; y++) {
             const row = [];
             field[y] = row
@@ -92,8 +104,9 @@ function createField() {
 
 function gameLoop(){
     hungry=true
-    
-    // fun mode foodExists=false
+    if(fun==true){
+        foodExists=false
+    }
     if(foodExists==false){
         do {
             randomX=Math.floor(Math.random() * widthInput);
@@ -156,7 +169,8 @@ function gameLoop(){
         }
         
     }else{
-        console.log("death",lastKey)
+        let message="your score is "+String(foodEaten-4)
+        alert(message)
         clearInterval(timerInterval)
     }
 
