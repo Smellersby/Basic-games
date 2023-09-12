@@ -2,8 +2,10 @@ var root = document.querySelector(':root');
 document.body.addEventListener("keydown",keyCheck)
 let startButton = document.getElementById("startButton")
 startButton.addEventListener("click", createField)
-let inputKey
-let lastKey
+
+let inputKey //first, raw data
+let currentKey //checked value
+let lastKey //used value
 let fieldExists=false
 let widthInput=11
 let heightInput=11
@@ -28,12 +30,29 @@ class cell {
 function keyCheck(event){
     inputKey=String(event.key).toLowerCase()
     if(inputKey=="w"||inputKey=="a"||inputKey=="d"||inputKey=="s"||inputKey=="arrowup"||inputKey=="arrowdown"||inputKey=="arrowleft"||inputKey=="arrowright"){
-        lastKey=inputKey 
+        if(inputKey=="w"||inputKey=="arrowup"){
+            if(lastKey!="arrowdown"&&lastKey!="s"){
+                currentKey=inputKey 
+            }
+        }else if(inputKey=="s"||inputKey=="arrowdown"){
+            if(lastKey!="arrowup"&&lastKey!="w"){
+                currentKey=inputKey 
+            }
+        }else if(inputKey=="d"||inputKey=="arrowright"){
+            if(lastKey!="arrowleft"&&lastKey!="a"){
+                currentKey=inputKey 
+            }
+        }else{
+            if(lastKey!="arrowright"&&lastKey!="d"){
+                currentKey=inputKey 
+            }
+        }
+        //currentKey=inputKey 
     }
 }
 function createField() {
         hungry=true
-        lastKey="arrowup"
+        currentKey="arrowup"
         snakeY=5
         snakeX=5
         foodEaten=10//4
@@ -73,6 +92,8 @@ function createField() {
 
 function gameLoop(){
     hungry=true
+    
+    // fun mode foodExists=false
     if(foodExists==false){
         do {
             randomX=Math.floor(Math.random() * widthInput);
@@ -82,7 +103,7 @@ function gameLoop(){
         foodExists=true
     }
 
-    
+    lastKey=currentKey    
 
     switch (lastKey) {
         case 'arrowup':
@@ -127,7 +148,7 @@ function gameLoop(){
             root.style.setProperty('--background', randomColorSend);
             randomColorSend="hsl( "+randomColor+", 80%, 10%)"
             root.style.setProperty('--snake', randomColorSend);
-            randomColorSend="hsl( "+randomColor+", 100%, 70%)"
+            randomColorSend="hsl( "+randomColor+", 100%, 80%)"
             root.style.setProperty('--body', randomColorSend);
         }else{
             field[snakeY][snakeX].visual.className+=" snake"
