@@ -145,7 +145,7 @@ function gameLoop() {
             snakeX++
             break;
     }
-    if ((snakeX < widthInput && snakeX > -1) && (snakeY < heightInput && snakeY > -1) && field[snakeY][snakeX].visual.className != "cell snake") {
+    if ((snakeX < widthInput && snakeX > -1) && (snakeY < heightInput && snakeY > -1) ) {
         if (field[snakeY][snakeX].visual.className == "cell food") {
             hungry = false
             foodEaten++
@@ -163,15 +163,19 @@ function gameLoop() {
             root.style.setProperty('--snake', randomColorSend);
             randomColorSend = "hsl( " + randomColor + ", 100%, 80%)"
             root.style.setProperty('--body', randomColorSend);
-        } else {
+        }else if(field[snakeY][snakeX].ticksLeft>1){
+            clearInterval(timerInterval)
+            let message = "your score is " + String(foodEaten - 4)
+            alert(message)
+        }else {
             field[snakeY][snakeX].visual.className += " snake"
             field[snakeY][snakeX].ticksLeft = foodEaten
         }
 
     } else {
+        clearInterval(timerInterval)
         let message = "your score is " + String(foodEaten - 4)
         alert(message)
-        clearInterval(timerInterval)
     }
 
     for (let y = 0; y < field.length; y++) {
