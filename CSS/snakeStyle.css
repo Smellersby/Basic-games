@@ -7,6 +7,20 @@
 }
 body{
     background-color: var(--body);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+a{
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--body);
 }
 .cell{
     width: 25px;
@@ -30,17 +44,17 @@ body{
     background-color: var(--food);
 }
 #fieldContainer{
-    background-color: var(--background);
     width: fit-content;
+    border-radius: 7px;
+    padding: 5px;
 }
 #startingScreen{
     padding: 30px;
     width: fit-content;
-    background-color: var(--background);
-    border-width: 3px;
+    background-color: var(--cell);
     border-radius: 10px;
-    border-style: solid;
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 p{
     margin-top: 0px;
@@ -50,14 +64,21 @@ p{
     height: 50px;
 }
 #extraFoodP{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
     margin-top: 10px;
+    color: var(--body);
 }
 .difficulty{
-    background-color: rgb(254, 254, 255);
+    background-color: var(--body);
     width: 90px;
     height: 30px;
-    border-radius: 15px;
+    border-radius: 8px;
     font-size: 18px;
-    border-width: 3px;
-    border-style: solid;
+    color: var(--snake);
+    background-color: var(--body);
+    border-style: none;
+}
+.difficulty:active{
+    background-color: gainsboro;
 }

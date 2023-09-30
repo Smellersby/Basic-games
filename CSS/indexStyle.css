@@ -3,6 +3,12 @@
     flex-flow: column;
     align-items: center;
 }
+#gameCollectionContainer{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 50px;
+    margin-top: 50px;
+}
 .game{
     display: flex;
     flex-flow: column;

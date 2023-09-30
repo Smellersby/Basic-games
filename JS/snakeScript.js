@@ -2,6 +2,7 @@ var root = document.querySelector(':root');
 document.body.addEventListener("keydown", keyCheck)
 let startButton = document.getElementById("startButton")
 startButton.addEventListener("click", createField)
+let fieldContainer = document.getElementById("fieldContainer")
 
 let inputKey //first, raw data
 let currentKey //checked value
@@ -62,7 +63,6 @@ function keyCheck(event) {
     }
 }
 function createField() {
-    console.log(speed)
     hungry = true
     currentKey = "arrowup"
     snakeY = 5
@@ -83,6 +83,7 @@ function createField() {
         }
     }
     fieldExists = true
+    fieldContainer.setAttribute("style", "background-color:var(--background);")
     timerInterval = setInterval(gameLoop, speed);
     for (let y = 0; y < heightInput; y++) {
         const row = [];
