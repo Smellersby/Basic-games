@@ -5,6 +5,8 @@ startButton.addEventListener("click", createField)
 let fieldContainer = document.getElementById("fieldContainer")
 let theFunny = document.getElementById("theFunny")
 
+var boom = new Audio('../sounds/Vine-boom-sound-effect.mp3');
+
 let inputKey //first, raw data
 let currentKey //checked value
 let lastKey //used value
@@ -206,6 +208,7 @@ function death(){
             break;
     }
     setTimeout(() => {
+        boom.play()
         theFunny.style.transitionDuration="0s"
         theFunny.style.opacity="1"
         setTimeout(() => {
