@@ -1,0 +1,63 @@
+:root {
+    --snake: #000000;
+    --background: #3e8000;
+    --cell: #43b103;
+    --food: hsl(0, 59%, 41%);
+    --body: hsl(0, 0%, 100%)
+}
+body{
+    background-color: var(--body);
+}
+.cell{
+    width: 25px;
+    height: 25px;
+    background-color: var(--cell);
+    margin: 2px;
+    border-radius: 3px;
+}
+#fieldContainer{
+    display: flex;
+    flex-flow: column;
+}
+.row{
+    display: flex;
+    
+}
+.snake{
+    background-color: var(--snake);
+}
+.food{
+    background-color: var(--food);
+}
+#fieldContainer{
+    background-color: var(--background);
+    width: fit-content;
+}
+#startingScreen{
+    padding: 30px;
+    width: fit-content;
+    background-color: var(--background);
+    border-width: 3px;
+    border-radius: 10px;
+    border-style: solid;
+    margin-top: 30px;
+}
+p{
+    margin-top: 0px;
+}
+#startButton{
+    margin-top: 10px;
+    height: 50px;
+}
+#extraFoodP{
+    margin-top: 10px;
+}
+.difficulty{
+    background-color: rgb(254, 254, 255);
+    width: 90px;
+    height: 30px;
+    border-radius: 15px;
+    font-size: 18px;
+    border-width: 3px;
+    border-style: solid;
+}
