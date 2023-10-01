@@ -3,6 +3,7 @@ document.body.addEventListener("keydown", keyCheck)
 let startButton = document.getElementById("startButton")
 startButton.addEventListener("click", createField)
 let fieldContainer = document.getElementById("fieldContainer")
+let theFunny = document.getElementById("theFunny")
 
 let inputKey //first, raw data
 let currentKey //checked value
@@ -165,18 +166,14 @@ function gameLoop() {
             randomColorSend = "hsl( " + randomColor + ", 100%, 80%)"
             root.style.setProperty('--body', randomColorSend);
         }else if(field[snakeY][snakeX].ticksLeft>1){
-            clearInterval(timerInterval)
-            let message = "your score is " + String(foodEaten - 4)
-            alert(message)
+            death();
         }else {
             field[snakeY][snakeX].visual.className += " snake"
             field[snakeY][snakeX].ticksLeft = foodEaten
         }
 
     } else {
-        clearInterval(timerInterval)
-        let message = "your score is " + String(foodEaten - 4)
-        alert(message)
+        death()
     }
 
     for (let y = 0; y < field.length; y++) {
@@ -189,4 +186,35 @@ function gameLoop() {
             }
         }
     }
+}
+
+function death(){
+    clearInterval(timerInterval)
+    let funnyNumber=Math.floor(Math.random() * 4)
+    switch (funnyNumber){
+        case 0:
+            theFunny.src="../images/RDT_20231001_1712555346045813161097111.jpg";
+            break;
+        case 1:
+            theFunny.src="../images/RDT_20231001_1848262587168091985664655.jpg";
+            break;
+        case 2:
+            theFunny.src="../images/RDT_20231001_1855443296956060266605250.jpg";
+            break;
+        case 3:
+            theFunny.src="../images/RDT_20231001_1919391163061592761754657.jpg";
+            break;
+    }
+    setTimeout(() => {
+        theFunny.style.transitionDuration="0s"
+        theFunny.style.opacity="1"
+        setTimeout(() => {
+            theFunny.style.transitionDuration="1.5s"
+            theFunny.style.opacity="0.00000001"
+        }, 200);
+        setTimeout(() => {
+            let message = "your score is " + String(foodEaten - 4)
+            alert(message)
+        }, 1000);
+    }, 200);
 }

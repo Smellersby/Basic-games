@@ -3,13 +3,19 @@
     --background: #3e8000;
     --cell: #43b103;
     --food: hsl(0, 59%, 41%);
-    --body: hsl(0, 0%, 100%)
+    --body: hsl(0, 0%, 100%);
 }
 body{
     background-color: var(--body);
     display: flex;
     flex-flow: column;
     align-items: center;
+}
+img{
+    position: absolute;
+    left: -50px;
+    top: -50px;
+    opacity: 0;
 }
 a{
     color: black;
@@ -32,6 +38,9 @@ h1{
 #fieldContainer{
     display: flex;
     flex-flow: column;
+}
+#funnyDiv{
+    position: relative;
 }
 .row{
     display: flex;
