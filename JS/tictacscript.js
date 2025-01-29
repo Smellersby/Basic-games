@@ -8,7 +8,7 @@ let horizontalVictory=0
 let verticalVictory=0
 let diagonalVictory=0
 let lastSign=0
-let acualLine//idk
+let acualLine
 let previousWidth
 let lockPlayer=0
 
@@ -173,7 +173,7 @@ function victoryAlert(axis,coordinate){
     line.style.height="15px" 
     gameBoxes[coordinate][0].appendChild(line)
     }else if(axis=="diagonal1"){
-    line.style.transformOrigin="top left"//super useful hujna
+    line.style.transformOrigin="top left"
     line.style.left="20px" 
     line.style.top="10px" 
     line.style.width="400px"
