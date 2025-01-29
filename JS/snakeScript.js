@@ -22,6 +22,7 @@ let foodExists
 let randomColorSend
 let speed = 250
 let fun = false
+let foodCycles
 const field = [];
 
 let slowButton = document.getElementById("slow")
@@ -112,12 +113,26 @@ function gameLoop() {
     hungry = true
     if (fun == true) {
         foodExists = false
+        foodCycles=0
+        do {
+            randomX = Math.floor(Math.random() * widthInput);
+            randomY = Math.floor(Math.random() * heightInput);
+            foodCycles++
+            if(Math.random()>0.5){
+                randomX=-1;
+                break;
+            }
+        } while ((field[randomY][randomX].visual.className == "cell snake" || field[randomY][randomX].visual.className == "cell food") && foodCycles<10);
+        if(randomX!=-1){
+            field[randomY][randomX].visual.className += " food"
+        }
+        foodExists = true
     }
     if (foodExists == false) {
         do {
             randomX = Math.floor(Math.random() * widthInput);
             randomY = Math.floor(Math.random() * heightInput);
-        } while (field[randomY][randomX].visual.className == "cell snake");
+        } while (field[randomY][randomX].visual.className == "cell snake" || field[randomY][randomX].visual.className == "cell food");
         field[randomY][randomX].visual.className += " food"
         foodExists = true
     }
