@@ -66,6 +66,8 @@ function keyCheck(event) {
     }
 }
 function createField() {
+    randomColor = String(Math.floor(Math.random() * 350));
+    applyColor(randomColor)
     hungry = true
     currentKey = "arrowup"
     snakeY = 5
@@ -156,17 +158,8 @@ function gameLoop() {
             foodExists = false
             field[snakeY][snakeX].visual.className = "cell snake"
             field[snakeY][snakeX].ticksLeft = foodEaten - 1
-            randomColor = String(Math.floor(Math.random() * 350));
-            randomColorSend = "hsl( " + randomColor + ", 100%, 50%)"
-            root.style.setProperty('--food', randomColorSend);
-            randomColorSend = "hsl( " + randomColor + ", 90%, 37%)"
-            root.style.setProperty('--cell', randomColorSend);
-            randomColorSend = "hsl( " + randomColor + ", 80%, 30%)"
-            root.style.setProperty('--background', randomColorSend);
-            randomColorSend = "hsl( " + randomColor + ", 80%, 10%)"
-            root.style.setProperty('--snake', randomColorSend);
-            randomColorSend = "hsl( " + randomColor + ", 100%, 80%)"
-            root.style.setProperty('--body', randomColorSend);
+            randomColor = String(parseInt(randomColor)+15);
+            applyColor(randomColor)
         }else if(field[snakeY][snakeX].ticksLeft>1){
             death();
         }else {
@@ -220,4 +213,29 @@ function death(){
             alert(message)
         }, 1000);
     }, 200);
+}
+function applyColor(randomColor){
+    randomColorSend = "hsl( " + randomColor + ", 100%, 50%)"
+    root.style.setProperty('--food', randomColorSend);
+    randomColorSend = "hsl( " + randomColor + ", 90%, 37%)"
+    root.style.setProperty('--cell', randomColorSend);
+    randomColorSend = "hsl( " + randomColor + ", 80%, 30%)"
+    root.style.setProperty('--background', randomColorSend);
+    randomColorSend = "hsl( " + randomColor + ", 80%, 10%)"
+    root.style.setProperty('--snake', randomColorSend);
+    randomColorSend = "hsl( " + randomColor + ", 100%, 80%)"
+    root.style.setProperty('--body', randomColorSend);
+    console.log(randomColor%350);
+    if(parseInt(randomColor%350)>200 && parseInt(randomColor)%350<300){
+        randomColorSend = "hsl( " + randomColor + ", 100%, 65%)"
+        root.style.setProperty('--food', randomColorSend);
+        randomColorSend = "hsl( " + randomColor + ", 70%, 45%)"
+        root.style.setProperty('--cell', randomColorSend);
+        randomColorSend = "hsl( " + randomColor + ", 80%, 30%)"
+        root.style.setProperty('--background', randomColorSend);
+        randomColorSend = "hsl( " + randomColor + ", 90%, 10%)"
+        root.style.setProperty('--snake', randomColorSend);
+        randomColorSend = "hsl( " + randomColor + ", 100%, 80%)"
+        root.style.setProperty('--body', randomColorSend);
+    }
 }
